@@ -1,8 +1,8 @@
 var DocumentDBClient = require('documentdb').DocumentClient;
 var async = require('async');
 
-function Beers(bearDao){
-    this.bearDao = bearDao;
+var Beers = function(beerDao){
+    this.beerDao = beerDao;
 }
 
 Beers.prototype = {
@@ -13,6 +13,8 @@ Beers.prototype = {
             query: 'SELECT * FROM root r',
             parameters:[]
         };
+
+        console.dir(self);
 
         self.beerDao.find(querySpec, function(err, items){
             if(err){
@@ -38,8 +40,7 @@ Beers.prototype = {
 
             res.redirect('/');
         });
-    },
-
+    }
 
 }
 

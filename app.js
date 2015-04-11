@@ -37,7 +37,7 @@ var beers = new Beers(beerDao);
 beerDao.init();
 
 app.get('/', beers.showBeers.bind(beers));
-app.post('/addbeer', beers.add.bind(beers));
+app.post('/addbeer', beers.addBeer.bind(beers));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

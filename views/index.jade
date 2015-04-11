@@ -1,27 +1,18 @@
 extends layout
 
 block content
-  h1 #{title}
-  br
+    h1 #{title}
+    br
     table.table.table-striped.table-bordered
-      tr
-        td Name
-        td Category
-        td Date
-        td Complete
-      if (typeof beers === "undefined")
+        tr
+            td Name
+    if (typeof beers === "undefined")
         tr
           td
-      else
+    else
         each beer in beers
-          tr
-            td #{task.name}
-            td #{task.category}
-            - var date  = new Date(task.date);
-            - var day   = date.getDate();
-            - var month = date.getMonth() + 1;
-            - var year  = date.getFullYear();
-            td #{month + "/" + day + "/" + year}
+        tr
+            td #{beer.name}
   hr
   form.well(action="/addbeer", method="post")
     label Item Name:
