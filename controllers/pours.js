@@ -27,6 +27,34 @@ router.get("/user/:user_id/pour", function(req, res){
 
 });
 
+// router.get('/user/:user_id/stats', function(req, res){
+
+//   var user = req.params.user_id;
+
+//   //get all the beer ids, counts of a users pours
+//   var querySpec = {
+//         query: "SELECT beer_id, poured_on FROM root r WHERE r.user_id=@user_id AND r.type='pour'",
+//         parameters:[{
+//           name:"@user_id",
+//           value:req.params.user_id
+//         }]
+//     };
+
+//   Pour.find(querySpec, function(err, items){
+//     if(err){
+//         throw(err)
+//     }
+      
+//     var itemsById = _.groupBy()
+
+//   });
+
+//   //get all the beer families of the 
+
+//   Pour.find(querySpec, function(err, items){
+
+// });
+
 router.put('/user/:user_id/pour/:beer_id', function(req, res){
 
   var user = req.params.user_id;
