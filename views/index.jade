@@ -6,18 +6,18 @@ block content
     table.table.table-striped.table-bordered
         tr
             td Name
-    if (typeof beers === "undefined")
-        tr
-          td
-    else
-        each beer in beers
-        tr
-            td #{beer.name}
-  hr
-  form.well(action="/addbeer", method="post")
-    label Item Name:
-    input(name="name", type="textbox")
-    label Item Category:
-    input(name="category", type="textbox")
-    br
-    button.btn(type="submit") Add item
+        if (typeof beers === "undefined")
+            tr
+                td
+        else
+            each beer in beers
+                tr
+                    td #{beer.name}
+    hr
+    form.well(action="/addbeer", method="post")
+        label Item Name:
+        input(name="name", type="textbox")
+        label Item Category:
+        input(name="category", type="textbox")
+        br
+        button.btn(type="submit") Add item

@@ -1,9 +1,18 @@
-var DocumentDBClient = require('documentdb').DocumentClient;
+//----------------------------
+//  Properties
+//----------------------------
+
+//configuration parameters
 var config = require('./config');
-var Beers = require('./routes/beers');
-var BeerDao = require('./models/beerDao');
 
+//data sources
+var DocumentDBClient = require('documentdb').DocumentClient;
 
+//models
+var Beer = require('./models/beer');
+var Pour = require('./models/pour');
+
+//server 
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -11,8 +20,17 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+//----------------------------
+//  Initialize Parameters
+//----------------------------
+
+var docDbClient = new DocumentDBClient(config.host, {
+    masterKey: config.authKey
+});
+
+//---------------------------
+//  Configure Server
+//---------------------------
 
 var app = express();
 
@@ -28,16 +46,34 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//------------------------
+//  Initialize Models
+//------------------------
 
 var docDbClient = new DocumentDBClient(config.host, {
     masterKey: config.authKey
 });
-var beerDao = new BeerDao(docDbClient, config.databaseId, config.collections.beer);
-var beers = new Beers(beerDao);
-beerDao.init();
 
-app.get('/', beers.showBeers.bind(beers));
-app.post('/addbeer', beers.addBeer.bind(beers));
+Pour.setDb(docDbClient, config.databaseId, config.collections.activity);
+Beer.setDb(docDbClient, config.databaseId, config.collections.beer);
+
+//------------------------
+//  Route Actions
+//------------------------
+
+//setup rest routing
+var router = express.Router();
+
+router.get('/', function(req, res){
+  res.json({message: 'hooray! welcome to our api'});
+});
+
+router.use('/api', require('./controllers/api'));
+app.use(router);
+
+//------------------------
+//  Errors
+//------------------------
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

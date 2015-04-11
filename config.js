@@ -5,7 +5,9 @@ config.authKey = process.env.AUTH_KEY || "mHMgX4Crq5x3Z6B2wuLEbOHBJyDuUY5e6EbClh
 config.databaseId = "icf-olson-hackathon15";
 config.collections = {
     beer:"beer",
-    activity:"activity"
+    activity:"activity",
+    rating:"ratings",
+    user:"users"
 };
 
 module.exports = config;
